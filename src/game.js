@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './board';
+import Switch from "react-switch";
 
 class Game extends React.Component {
   constructor(props) {
@@ -34,7 +35,12 @@ class Game extends React.Component {
           <div className="game-info">
             <div>{status}</div>
             <ol>{moves}</ol>
-            <button onClick={() => this.handleSorting()}>{this.state.ascending ? 'Descending' : 'Ascending'}</button>
+            <Switch onChange={() => this.handleSorting()}
+                    checked={this.state.ascending}
+                    uncheckedIcon={false} checkedIcon={false}
+                    height={14}
+                    width={28}
+                    offColor={'#080'}/> {!this.state.ascending ? 'Descending' : 'Ascending'}
           </div>
         </div>
       );
