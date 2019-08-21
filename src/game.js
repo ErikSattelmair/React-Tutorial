@@ -15,23 +15,9 @@ class Game extends React.Component {
     };
   }
 
-  getPositionOfChosenSqaure(current, beforeCurrent) {
-    for(let i=0; i<current.length; i++) {
-        if(current[i] !== beforeCurrent[i]) {
-            return i;
-        }
-    }
-
-    return 0;
-  }
-
-  handleSorting() {
-    this.setState({ascending: !this.state.ascending});
-  }
-
   render() {
       const history = this.state.history.slice(0, this.state.stepNumber + 1);
-      const moves = this.createMoves(history);
+      const moves = this.hasHistoryToBeReversed(history) ? this.createMoves(history).reverse() : this.createMoves(history);
 
       const current = history[this.state.stepNumber];
       const winner = this.calculateWinner(current.squares);
@@ -52,6 +38,40 @@ class Game extends React.Component {
           </div>
         </div>
       );
+    }
+
+    hasHistoryToBeReversed(history) {
+        const numberOfChosenSquaresAtFirstElement = this.getNumberOfChosenSqaure(history[0].squares);
+        const numberOfChosenSquaresAtLastElement = this.getNumberOfChosenSqaure(history[history.length - 1].squares);
+
+        return (this.state.ascending && numberOfChosenSquaresAtLastElement < numberOfChosenSquaresAtFirstElement)
+            || (!this.state.ascending && numberOfChosenSquaresAtLastElement > numberOfChosenSquaresAtFirstElement)
+    }
+
+    getNumberOfChosenSqaure(squares) {
+        let numberOfChosenSquares = 0;
+
+        for(let i=0; i<squares.length; i++) {
+            if(squares[i]) {
+                numberOfChosenSquares++;
+            }
+        }
+
+        return numberOfChosenSquares;
+    }
+
+    getPositionOfChosenSqaure(current, beforeCurrent) {
+        for(let i=0; i<current.length; i++) {
+            if(current[i] !== beforeCurrent[i]) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    handleSorting() {
+      this.setState({ascending: !this.state.ascending});
     }
 
     getGameStatus(winner) {
@@ -150,6 +170,7 @@ class Game extends React.Component {
                 return squares[a];
               }
             }
+
        return null;
     }
 }
