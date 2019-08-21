@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Square = (props) => {
-    return <button className="square" onClick={props.onClick}>
+    return <button style={props.styles.container} className="square" onClick={props.onClick}>
       {props.value}
     </button>
 }

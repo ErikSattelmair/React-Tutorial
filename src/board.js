@@ -3,7 +3,13 @@ import Square from './square';
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square key={i} value={this.props.squares[i]} onClick={() => this.props.onClick(i)}/>;
+    const styles = {
+        container: {
+            backgroundColor: this.props.winner && this.props.winner.includes(i) ? '#92a8d1' : ''
+      }
+    }
+
+    return <Square key={i} styles={styles} value={this.props.squares[i]} onClick={() => this.props.onClick(i)}/>;
   }
 
   createTable = () => {

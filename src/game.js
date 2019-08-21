@@ -23,6 +23,7 @@ class Game extends React.Component {
       const current = history[this.state.stepNumber];
       const winner = this.calculateWinner(current.squares);
       const status = this.getGameStatus(winner);
+      const winningLine = this.calculateWinningLine(current.squares);
 
       return (
         <div className="game">
@@ -30,6 +31,7 @@ class Game extends React.Component {
             <Board
               squares={current.squares}
               onClick={(i) => this.handleClick(i)}
+              winner={winningLine}
             />
           </div>
           <div className="game-info">
@@ -159,26 +161,37 @@ class Game extends React.Component {
       }
 
       calculateWinner(squares) {
-           const lines = [
-              [0, 1, 2],
-              [3, 4, 5],
-              [6, 7, 8],
-              [0, 3, 6],
-              [1, 4, 7],
-              [2, 5, 8],
-              [0, 4, 8],
-              [2, 4, 6],
-            ];
-
-            for (let i = 0; i < lines.length; i++) {
+        for (let i = 0; i < lines.length; i++) {
               const [a, b, c] = lines[i];
               if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
                 return squares[a];
               }
             }
 
-       return null;
+        return null;
+    }
+
+    calculateWinningLine(squares) {
+      for (let i = 0; i < lines.length; i++) {
+          const [a, b, c] = lines[i];
+          if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+              return lines[i];
+          }
+      }
+
+      return null;
     }
 }
+
+const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+];
 
 export default Game;
