@@ -1,6 +1,6 @@
 import React from 'react';
 import Board from './board';
-import Switch from "react-switch";
+import Switch from 'react-switch';
 
 class Game extends React.Component {
   constructor(props) {
