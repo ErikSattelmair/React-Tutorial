@@ -1,6 +1,8 @@
 import React from 'react';
 import Board from './board';
 import Switch from 'react-switch';
+import { withTranslation } from 'react-i18next';
+import detectBrowserLanguage from 'detect-browser-language'
 
 class Game extends React.Component {
   constructor(props) {
@@ -12,7 +14,8 @@ class Game extends React.Component {
       stepNumber: 0,
       xIsNext: true,
       stepMovedBackTo: -1,
-      ascending: true
+      ascending: true,
+      lng: detectBrowserLanguage().split('-')[0]
     };
   }
 
@@ -42,10 +45,23 @@ class Game extends React.Component {
                     uncheckedIcon={false} checkedIcon={false}
                     height={14}
                     width={28}
-                    offColor={'#080'}/> {!this.state.ascending ? 'Descending' : 'Ascending'}
+                    offColor={'#080'}/> {!this.state.ascending ? this.props.t('Descending') : this.props.t('Ascending')}
+             <div>
+                <p>{this.props.t('Language')}</p>
+                <input type="radio" value="en" checked={this.state.lng === 'en'} onChange={() => this.onLanguageChange('en')} /> {this.props.t('English')}
+                <input type="radio" value="de" checked={this.state.lng === 'de'} onChange={() => this.onLanguageChange('de')} /> {this.props.t('German')}
+                <input type="radio" value="es" checked={this.state.lng === 'es'} onChange={() => this.onLanguageChange('es')} /> {this.props.t('Spanish')}
+            </div>
           </div>
         </div>
       );
+    }
+
+    onLanguageChange(lng) {
+        this.setState({
+            lng: lng
+        })
+        this.props.i18n.changeLanguage(lng);
     }
 
     hasHistoryToBeReversed(history) {
@@ -86,9 +102,9 @@ class Game extends React.Component {
         let status;
 
         if (winner) {
-            status = 'Winner: ' + winner;
+            status = this.props.t('Winner') + winner;
           } else {
-            this.state.stepNumber > 8 ? status = 'Draw' : status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            this.state.stepNumber > 8 ? status = this.props.t('Draw') : status = this.props.t('Next_Player') + (this.state.xIsNext ? 'X' : 'O');
           }
 
         return status;
@@ -119,7 +135,7 @@ class Game extends React.Component {
     }
 
     getHistoryEntryLabel(move) {
-         return move ? 'Go to move #' + move : 'Go to game start';
+         return move ? this.props.t('Go_To_Move') + move : this.props.t('Go_To_Start');
     }
 
     getCoordinates(move, history) {
@@ -194,4 +210,4 @@ const lines = [
     [2, 4, 6],
 ];
 
-export default Game;
+export default withTranslation()(Game);

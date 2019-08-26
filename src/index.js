@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Game from './game';
 
+import './i18n';
+
 ReactDOM.render(
-  <Game />,
+  <Suspense fallback="loading">
+  <Game />
+  </Suspense>,
   document.getElementById('root')
 );
 

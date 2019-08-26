@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "detect-browser-language": "0.0.2",
+    "i18next": "^17.0.12",
+    "i18next-browser-languagedetector": "^3.0.3",
+    "i18next-xhr-backend": "^3.1.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-i18next": "^10.12.2",
     "react-scripts": "3.1.1",
     "react-switch": "^5.0.1",
     "winston": "^3.2.1"
