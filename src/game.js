@@ -3,6 +3,7 @@ import Switch from 'react-switch';
 import { withTranslation } from 'react-i18next';
 import Board from './board';
 import LanguageChoice from './language_choice';
+import Status from './status'
 
 class Game extends React.Component {
   constructor(props) {
@@ -25,7 +26,6 @@ class Game extends React.Component {
       const current = history[this.state.stepNumber];
       const winningLine = this.calculateWinningLine(current.squares);
       const winner = winningLine && current.squares[winningLine[0]];
-      const status = this.getGameStatus(winner);
 
       return (
         <div className="game">
@@ -37,7 +37,9 @@ class Game extends React.Component {
             />
           </div>
           <div className="game-info">
-            <div>{status}</div>
+            <Status winner={winner}
+                    stepNumber= {this.stepNumber}
+                    xIsNext = {this.state.xIsNext} />
             <ol>{moves}</ol>
             <Switch id="sorting" onChange={() => this.handleSorting()}
                     checked={this.state.ascending}
@@ -84,18 +86,6 @@ class Game extends React.Component {
 
     handleSorting() {
       this.setState({ascending: !this.state.ascending});
-    }
-
-    getGameStatus(winner) {
-        let status;
-
-        if (winner) {
-            status = this.props.t('Winner') + winner;
-          } else {
-            this.state.stepNumber > 8 ? status = this.props.t('Draw') : status = this.props.t('Next_Player') + (this.state.xIsNext ? 'X' : 'O');
-          }
-
-        return status;
     }
 
     createMoves(history) {
