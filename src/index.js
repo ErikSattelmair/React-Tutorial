@@ -1,15 +1,18 @@
 import React, { Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import './i18n';
+import './common/i18n';
+import ErrorBoundary from './error_boundry'
 
 //Lazy load component only when needed
-const Game = React.lazy(() => import('./game'));
+const Game = React.lazy(() => import('./component/game/game'));
 
 ReactDOM.render(
-  <Suspense fallback="loading...">
-    <Game />,
-  </Suspense>,
+  <ErrorBoundary>
+      <Suspense fallback="loading...">
+        <Game />,
+      </Suspense>
+  </ErrorBoundary>,
   document.getElementById('root')
 );
 

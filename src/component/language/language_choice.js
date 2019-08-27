@@ -20,6 +20,7 @@ class LanguageChoice extends React.Component {
      onLanguageChange(lng) {
         this.props.i18n.changeLanguage(lng);
      }
+
 }
 
 export default withTranslation()(LanguageChoice);
