@@ -1,7 +1,7 @@
 import React from 'react';
-import Board from './board';
 import Switch from 'react-switch';
 import { withTranslation } from 'react-i18next';
+import Board from './board';
 
 class Game extends React.Component {
   constructor(props) {
@@ -38,21 +38,25 @@ class Game extends React.Component {
           <div className="game-info">
             <div>{status}</div>
             <ol>{moves}</ol>
-            <Switch onChange={() => this.handleSorting()}
+            <Switch id="sorting" onChange={() => this.handleSorting()}
                     checked={this.state.ascending}
                     uncheckedIcon={false} checkedIcon={false}
                     height={14}
                     width={28}
-                    offColor={'#080'}/> {!this.state.ascending ? this.props.t('Descending') : this.props.t('Ascending')}
+                    offColor={'#080'}/>
+             <label htmlFor={"sorting"}> {!this.state.ascending ? this.props.t('Descending') : this.props.t('Ascending')}</label>
              <div>
                 <p>{this.props.t('Language')}</p>
-                <input type="radio" value="en" checked={this.props.i18n.language === 'en'} onChange={() => this.onLanguageChange('en')} /> {this.props.t('English')}
-                <input type="radio" value="de" checked={this.props.i18n.language === 'de'} onChange={() => this.onLanguageChange('de')} /> {this.props.t('German')}
-                <input type="radio" value="es" checked={this.props.i18n.language === 'es'} onChange={() => this.onLanguageChange('es')} /> {this.props.t('Spanish')}
+                <input type="radio" id="en" value="en" checked={this.props.i18n.language === 'en'} onChange={() => this.onLanguageChange('en')} />
+                <label htmlFor={"en"}>{this.props.t('English')}</label>
+                <input type="radio" id="de" value="de" checked={this.props.i18n.language === 'de'} onChange={() => this.onLanguageChange('de')} />
+                <label htmlFor={"de"}>{this.props.t('German')}</label>
+                <input type="radio" id="es" value="es" checked={this.props.i18n.language === 'es'} onChange={() => this.onLanguageChange('es')} />
+                <label htmlFor={"es"}>{this.props.t('Spanish')}</label>
             </div>
           </div>
         </div>
-      );
+      )
     }
 
     onLanguageChange(lng) {

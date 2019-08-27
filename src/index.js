@@ -1,13 +1,14 @@
 import React, { Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Game from './game';
-
 import './i18n';
+
+//Lazy load component only when needed
+const Game = React.lazy(() => import('./game'));
 
 ReactDOM.render(
   <Suspense fallback="loading">
-  <Game />
+    <Game />
   </Suspense>,
   document.getElementById('root')
 );
