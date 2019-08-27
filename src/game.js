@@ -23,9 +23,9 @@ class Game extends React.Component {
       const moves = this.hasHistoryToBeReversed(history) ? this.createMoves(history).reverse() : this.createMoves(history);
 
       const current = history[this.state.stepNumber];
-      const winner = this.calculateWinner(current.squares);
-      const status = this.getGameStatus(winner);
       const winningLine = this.calculateWinningLine(current.squares);
+      const winner = winningLine && current.squares[winningLine[0]];
+      const status = this.getGameStatus(winner);
 
       return (
         <div className="game">
@@ -150,7 +150,7 @@ class Game extends React.Component {
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
-        if (this.calculateWinner(squares) || squares[i]) {
+        if (this.calculateWinningLine(squares) || squares[i]) {
           return;
         }
 
@@ -163,17 +163,6 @@ class Game extends React.Component {
           xIsNext: !this.state.xIsNext,
         });
       }
-
-      calculateWinner(squares) {
-        for (let i = 0; i < lines.length; i++) {
-              const [a, b, c] = lines[i];
-              if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-                return squares[a];
-              }
-            }
-
-        return null;
-    }
 
     calculateWinningLine(squares) {
       for (let i = 0; i < lines.length; i++) {

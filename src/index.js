@@ -7,8 +7,8 @@ import './i18n';
 const Game = React.lazy(() => import('./game'));
 
 ReactDOM.render(
-  <Suspense fallback="loading">
-    <Game />
+  <Suspense fallback="loading...">
+    <Game />,
   </Suspense>,
   document.getElementById('root')
 );
