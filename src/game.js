@@ -2,7 +2,6 @@ import React from 'react';
 import Board from './board';
 import Switch from 'react-switch';
 import { withTranslation } from 'react-i18next';
-import detectBrowserLanguage from 'detect-browser-language'
 
 class Game extends React.Component {
   constructor(props) {
@@ -15,7 +14,6 @@ class Game extends React.Component {
       xIsNext: true,
       stepMovedBackTo: -1,
       ascending: true,
-      lng: detectBrowserLanguage().split('-')[0]
     };
   }
 
@@ -48,9 +46,9 @@ class Game extends React.Component {
                     offColor={'#080'}/> {!this.state.ascending ? this.props.t('Descending') : this.props.t('Ascending')}
              <div>
                 <p>{this.props.t('Language')}</p>
-                <input type="radio" value="en" checked={this.state.lng === 'en'} onChange={() => this.onLanguageChange('en')} /> {this.props.t('English')}
-                <input type="radio" value="de" checked={this.state.lng === 'de'} onChange={() => this.onLanguageChange('de')} /> {this.props.t('German')}
-                <input type="radio" value="es" checked={this.state.lng === 'es'} onChange={() => this.onLanguageChange('es')} /> {this.props.t('Spanish')}
+                <input type="radio" value="en" checked={this.props.i18n.language === 'en'} onChange={() => this.onLanguageChange('en')} /> {this.props.t('English')}
+                <input type="radio" value="de" checked={this.props.i18n.language === 'de'} onChange={() => this.onLanguageChange('de')} /> {this.props.t('German')}
+                <input type="radio" value="es" checked={this.props.i18n.language === 'es'} onChange={() => this.onLanguageChange('es')} /> {this.props.t('Spanish')}
             </div>
           </div>
         </div>
@@ -58,9 +56,6 @@ class Game extends React.Component {
     }
 
     onLanguageChange(lng) {
-        this.setState({
-            lng: lng
-        })
         this.props.i18n.changeLanguage(lng);
     }
 
