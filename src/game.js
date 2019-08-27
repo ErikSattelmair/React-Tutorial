@@ -52,10 +52,6 @@ class Game extends React.Component {
       )
     }
 
-    onLanguageChange(lng) {
-        this.props.i18n.changeLanguage(lng);
-    }
-
     hasHistoryToBeReversed(history) {
         const numberOfChosenSquaresAtFirstElement = this.getNumberOfChosenSqaure(history[0].squares);
         const numberOfChosenSquaresAtLastElement = this.getNumberOfChosenSqaure(history[history.length - 1].squares);
