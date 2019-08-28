@@ -15,7 +15,7 @@ class MoveHistory extends React.Component {
         const moves = this.hasHistoryToBeReversed(history) ? this.createMoves(history).reverse() : this.createMoves(history);
 
         return(
-            <div>
+          <React.Fragment>
              <ol>{moves}</ol>
              <Switch id="sorting" onChange={() => this.handleSorting()}
                 checked={this.state.ascending}
@@ -24,7 +24,7 @@ class MoveHistory extends React.Component {
                 width={28}
                 offColor={'#080'}/>
              <label htmlFor={"sorting"}> {!this.state.ascending ? this.props.t('Descending') : this.props.t('Ascending')}</label>
-            </div>
+          </React.Fragment>
         )
     }
 
