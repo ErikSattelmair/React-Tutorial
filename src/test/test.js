@@ -11,36 +11,35 @@ let browser
 let page
 
 describe('Login', () => {
-  beforeAll(async () => {
+  beforeAll(async (done) => {
         await app.use(express.static(path.join(__dirname, '../../build')));
 
         await app.get('/', function(req, res) {
           res.sendFile(path.join(__dirname, '../../build/index.html'))
         });
 
-        await app.listen(port);
-
-        server = app;
+        server = await app.listen(port);
 
         browser = await puppeteer.launch({
-        	  headless: false
+        	  headless: true
         });
 
         page = await browser.newPage();
+        done();
    })
 
-  test('users can login', async () => {
+  test('users can login', async (done) => {
     await page.goto('http://localhost:3000');
 
     await page.waitForSelector('.game-info');
     const html = await page.$eval('.game-info > div', e => e.innerHTML);
     expect(html).toBe('Next Player: X');
+    done();
   })
 
   // This function occurs after the result of each tests, it closes the browser and server
-    afterAll(async () => {
-      await browser.close()
-      await server.close(done)
+    afterAll(async (done) => {
+      browser.close()
+      server.close(done)
     })
-
 });
