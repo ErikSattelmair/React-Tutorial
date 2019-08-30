@@ -10,7 +10,7 @@ const Game = React.lazy(() => import('./component/game/game'));
 ReactDOM.render(
   <ErrorBoundary>
       <Suspense fallback="loading...">
-        <Game />,
+        <Game />
       </Suspense>
   </ErrorBoundary>,
   document.getElementById('root')
